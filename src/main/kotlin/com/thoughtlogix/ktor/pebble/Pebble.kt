@@ -14,6 +14,7 @@ import io.ktor.http.withCharset
 import io.ktor.response.ApplicationSendPipeline
 import io.ktor.util.AttributeKey
 import kotlinx.coroutines.experimental.io.ByteWriteChannel
+import java.util.*
 
 
 class PebbleContent(val template: String,
@@ -21,17 +22,24 @@ class PebbleContent(val template: String,
                     val etag: String? = null,
                     val contentType: ContentType = ContentType.Text.Html.withCharset(Charsets.UTF_8))
 
-class Pebble() {
+class Configuration {
+    var templateDir = ""
+    var strictVariables = false
+    var defaultLocale = Locale.getDefault()
+}
 
-    private var engine: PebbleEngine = PebbleEngine.Builder().build();
-    //    private var engine: PebbleEngine  = PebbleEngine.Builder().extension(CoreExtension()).build();
+class Pebble(configuration: Configuration) {
+    var templateDir = configuration.templateDir
+    var engine = PebbleEngine.Builder()
+            .strictVariables(configuration.strictVariables)
+            .defaultLocale(configuration.defaultLocale)
+            .build();
 
-    companion object Feature : ApplicationFeature<ApplicationCallPipeline, PebbleEngine, Pebble> {
+    companion object Feature : ApplicationFeature<ApplicationCallPipeline, Configuration, Pebble> {
         override val key = AttributeKey<Pebble>("pebble")
 
-        override fun install(pipeline: ApplicationCallPipeline, configure: PebbleEngine.() -> Unit): Pebble {
-            //            val config = VeloEngine().apply(configure)
-            val feature = Pebble()
+        override fun install(pipeline: ApplicationCallPipeline, configure: Configuration.() -> Unit): Pebble {
+            val feature = Pebble(Configuration().apply(configure))
             pipeline.sendPipeline.intercept(ApplicationSendPipeline.Transform) { value ->
                 if (value is PebbleContent) {
                     val response = feature.process(value)
@@ -43,7 +51,7 @@ class Pebble() {
     }
 
     private fun process(content: PebbleContent): PebbleOutgoingContent {
-        return PebbleOutgoingContent(engine.getTemplate(content.template), content.model, content.etag, content.contentType)
+        return PebbleOutgoingContent(engine.getTemplate(templateDir + content.template), content.model, content.etag, content.contentType)
     }
 
     private class PebbleOutgoingContent(val template: PebbleTemplate,
