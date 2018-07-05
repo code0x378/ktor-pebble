@@ -1,14 +1,20 @@
 package com.thoughtlogix.ktor.pebble
 
-import io.ktor.application.*
-import io.ktor.features.*
+import io.ktor.application.Application
+import io.ktor.application.call
+import io.ktor.application.install
+import io.ktor.features.DefaultHeaders
 import io.ktor.response.respond
-import io.ktor.routing.*
+import io.ktor.routing.get
+import io.ktor.routing.routing
+import java.util.*
 
 fun Application.main() {
     install(DefaultHeaders)
-    install(CallLogging)
     install(Pebble) {
+        templateDir = ""
+        strictVariables = true
+        defaultLocale = Locale.US
     }
     routing {
         get("/") {

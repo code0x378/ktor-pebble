@@ -6,4 +6,4 @@ A feature to use the Pebble template engine with ktor.  Content basically from k
 
 - add to bintray
 - update readme
-- add feature configuration options
+- add additional pebble configuration options
