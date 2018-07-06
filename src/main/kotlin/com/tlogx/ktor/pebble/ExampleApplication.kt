@@ -1,4 +1,4 @@
-package com.thoughtlogix.ktor.pebble
+package com.tlogx.ktor.pebble
 
 import io.ktor.application.Application
 import io.ktor.application.call

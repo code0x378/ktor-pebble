@@ -1,17 +1,22 @@
-import com.thoughtlogix.ktor.pebble.Pebble
-import com.thoughtlogix.ktor.pebble.PebbleContent
-import com.thoughtlogix.ktor.pebble.main
-import io.ktor.application.*
+import com.tlogx.ktor.pebble.Pebble
+import com.tlogx.ktor.pebble.PebbleContent
+import io.ktor.application.call
+import io.ktor.application.install
 import io.ktor.features.Compression
 import io.ktor.features.ConditionalHeaders
-import io.ktor.http.*
+import io.ktor.http.ContentType
+import io.ktor.http.HttpHeaders
+import io.ktor.http.HttpMethod
+import io.ktor.http.withCharset
 import io.ktor.response.respond
 import io.ktor.routing.get
 import io.ktor.routing.routing
-import io.ktor.server.testing.*
+import io.ktor.server.testing.handleRequest
+import io.ktor.server.testing.withTestApplication
 import org.junit.Test
 import java.util.zip.GZIPInputStream
-import kotlin.test.*
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 
 class PebbleTest {
 
