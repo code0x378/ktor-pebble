@@ -1,4 +1,4 @@
-package com.thoughtlogix.ktor.pebble
+package com.tlogx.ktor.pebble
 
 import com.mitchellbosecke.pebble.PebbleEngine
 import com.mitchellbosecke.pebble.template.PebbleTemplate

@@ -8,18 +8,26 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.3"
     }
 }
 
+apply plugin: 'java'
+apply plugin: 'maven-publish'
 apply plugin: 'kotlin'
 apply plugin: 'application'
+apply plugin: 'com.jfrog.bintray'
 
+
+version = '0.0.1'
+group = 'com.tlogx.ktor'
+description = """Ktor Pebble Templates"""
 mainClassName = "io.ktor.server.netty.DevelopmentEngine"
 
 sourceSets {
     main.kotlin.srcDirs = [ 'src/main/kotlin' ]
     test.kotlin.srcDirs = [ 'test' ]
-    main.resources.srcDirs = [ 'resources', 'src/main/resources' ]
+    main.resources.srcDirs = [ 'src/main/resources' ]
 }
 
 repositories {
@@ -32,9 +40,97 @@ dependencies {
     compile "io.ktor:ktor-server-netty:$ktor_version"
     compile "io.ktor:ktor-html-builder:$ktor_version"
     compile "ch.qos.logback:logback-classic:$logback_version"
-    compile 'com.mitchellbosecke:pebble:2.3.0'
+    compile "com.mitchellbosecke:pebble:2.3.0"
 
     testCompile "io.ktor:ktor-server-tests:$ktor_version"
 }
 
 kotlin.experimental.coroutines = 'enable'
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+javadoc.failOnError = false
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+def pomConfig = {
+    licenses {
+        license {
+            name "The Apache Software License, Version 2.0"
+            url "http://www.apache.org/licenses/LICENSE-2.0.txt"
+            distribution "repo"
+        }
+    }
+    developers {
+        developer {
+            id "JeffSmithDev"
+            name "Jeff Smith"
+            email "jeff@thoughtlogix.com"
+        }
+    }
+
+    scm {
+        url "https://github.com/jeffsmithdev/ktor-pebble"
+    }
+}
+
+publishing {
+    publications {
+        mavenPublication(MavenPublication) {
+            from components.java
+            artifact sourcesJar {
+                classifier "sources"
+            }
+            artifact javadocJar {
+                classifier "javadoc"
+            }
+            groupId 'com.tlogx.ktor'
+            artifactId 'ktor-pebble'
+            version '0.0.1'
+            pom.withXml {
+                def root = asNode()
+                root.appendNode('description', 'Ktor Pebble Template Feature')
+                root.appendNode('name', 'Ktor Pebble Template Feature')
+                root.appendNode('url', 'https://github.com/jeffsmithdev/ktor-pebble')
+                root.children().last() + pomConfig
+            }
+        }
+    }
+}
+
+bintray {
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRAY_KEY')
+    publications = ['mavenPublication']
+    dryRun = false
+    publish = true
+    override = true
+    pkg {
+        repo = 'maven'
+        name = 'ktor-pebble'
+        desc = 'Ktor Pebble Template Feature'
+        websiteUrl = 'https://github.com/jeffsmithdev/ktor-pebble'
+        issueTrackerUrl = 'https://github.com/jeffsmithdev/ktor-pebble/issues'
+        userOrg = user
+        licenses = ['Apache-2.0']
+        labels = ['ktor', 'pebble', 'kotlin']
+        vcsUrl = 'https://github.com/jeffsmithdev/ktor-pebble.git'
+        githubRepo = 'jeffsmithdev/ktor-pebble'
+        githubReleaseNotesFile = 'README.md'
+        version {
+            name = '0.0.1'
+            desc = '0.0.1'
+            released  = new Date()
+        }
+    }
+}
