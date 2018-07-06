@@ -25,7 +25,7 @@ install(Pebble) {
         install(Pebble) {
             templateDir = "" // resource path,  i.e templateDir = "templates/"
             strictVariables = true // throw exception if variables are missing
-            defaultLocale = Locale.US
+            defaultLocale = Locale.US // override Locale.getDefault()
         }
 }
 ```
@@ -55,3 +55,8 @@ routing {
 
 **0.0.1**
 - Basic functionality
+
+## Notes
+
+- Most feature content taken from [ktor-velocity](https://ktor.io/features/templates/velocity.html)
+- [Pebble template engine](http://www.mitchellbosecke.com/pebble/home) by Mitchell Bösecke
