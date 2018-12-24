@@ -4,16 +4,17 @@ import com.mitchellbosecke.pebble.PebbleEngine
 import com.mitchellbosecke.pebble.template.PebbleTemplate
 import io.ktor.application.ApplicationCallPipeline
 import io.ktor.application.ApplicationFeature
-import io.ktor.cio.bufferedWriter
-import io.ktor.content.EntityTagVersion
-import io.ktor.content.OutgoingContent
-import io.ktor.content.versions
 import io.ktor.http.ContentType
 import io.ktor.http.charset
+import io.ktor.http.content.EntityTagVersion
+import io.ktor.http.content.OutgoingContent
+import io.ktor.http.content.versions
 import io.ktor.http.withCharset
 import io.ktor.response.ApplicationSendPipeline
 import io.ktor.util.AttributeKey
-import kotlinx.coroutines.experimental.io.ByteWriteChannel
+import io.ktor.util.KtorExperimentalAPI
+import io.ktor.util.cio.bufferedWriter
+import kotlinx.coroutines.io.ByteWriteChannel
 import java.util.*
 
 
@@ -29,11 +30,11 @@ class Configuration {
 }
 
 class Pebble(configuration: Configuration) {
-    var templateDir = configuration.templateDir
-    var engine = PebbleEngine.Builder()
+    private var templateDir = configuration.templateDir
+    private var engine = PebbleEngine.Builder()
             .strictVariables(configuration.strictVariables)
             .defaultLocale(configuration.defaultLocale)
-            .build();
+            .build()
 
     companion object Feature : ApplicationFeature<ApplicationCallPipeline, Configuration, Pebble> {
         override val key = AttributeKey<Pebble>("pebble")
@@ -58,6 +59,7 @@ class Pebble(configuration: Configuration) {
                                         val model: Map<String, Any>,
                                         etag: String?,
                                         override val contentType: ContentType) : OutgoingContent.WriteChannelContent() {
+        @KtorExperimentalAPI
         override suspend fun writeTo(channel: ByteWriteChannel) {
             channel.bufferedWriter(contentType.charset() ?: Charsets.UTF_8).use {
                 template.evaluate(it, model)
