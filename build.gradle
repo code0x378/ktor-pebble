@@ -101,7 +101,7 @@ publishing {
             }
             groupId 'com.tlogx.ktor'
             artifactId 'ktor-pebble'
-            version '0.0.1'
+            version '0.0.2'
             pom.withXml {
                 def root = asNode()
                 root.appendNode('description', 'Ktor Pebble Template Feature')
@@ -133,8 +133,8 @@ bintray {
         githubRepo = 'jeffsmithdev/ktor-pebble'
         githubReleaseNotesFile = 'README.md'
         version {
-            name = '0.0.1'
-            desc = '0.0.1'
+            name = '0.0.2'
+            desc = '0.0.2'
             released = new Date()
         }
     }

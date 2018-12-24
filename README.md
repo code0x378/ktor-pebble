@@ -53,6 +53,9 @@ routing {
 
 ## Releases
 
+**0.0.2**
+- Kotlin 1.3 support and minor code fixes/improvements - Thanks Preslav Rachev
+
 **0.0.1**
 - Basic functionality
 
