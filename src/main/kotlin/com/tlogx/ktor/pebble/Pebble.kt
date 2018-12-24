@@ -30,11 +30,11 @@ class Configuration {
 }
 
 class Pebble(configuration: Configuration) {
-    var templateDir = configuration.templateDir
-    var engine = PebbleEngine.Builder()
+    private var templateDir = configuration.templateDir
+    private var engine = PebbleEngine.Builder()
             .strictVariables(configuration.strictVariables)
             .defaultLocale(configuration.defaultLocale)
-            .build();
+            .build()
 
     companion object Feature : ApplicationFeature<ApplicationCallPipeline, Configuration, Pebble> {
         override val key = AttributeKey<Pebble>("pebble")
