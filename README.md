@@ -15,7 +15,7 @@ maven { url  "https://dl.bintray.com/jeffsmithdev/maven" }
 Include the artifact:
 
 ```groovy
-compile 'com.tlogx.ktor:ktor-pebble:0.0.1'
+compile 'com.tlogx.ktor:ktor-pebble:0.0.2'
 ```
 
 Install the feature in ktor:
