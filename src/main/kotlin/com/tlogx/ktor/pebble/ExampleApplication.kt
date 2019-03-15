@@ -9,10 +9,13 @@ import io.ktor.routing.get
 import io.ktor.routing.routing
 import java.util.*
 
+/**
+ * Sample application
+ */
 fun Application.main() {
     install(DefaultHeaders)
     install(Pebble) {
-        templateDir = ""
+        templateDir = ""  // defaults to root of resources folder
         strictVariables = true
         defaultLocale = Locale.US
     }

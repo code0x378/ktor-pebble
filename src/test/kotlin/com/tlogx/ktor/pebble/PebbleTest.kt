@@ -18,6 +18,9 @@ import java.util.zip.GZIPInputStream
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
+/**
+ * Pebble Tests
+ */
 class PebbleTest {
 
     private val model = mapOf(
@@ -25,6 +28,10 @@ class PebbleTest {
             "description" to "A Ktor feature to use the pebble template engine by Mitchell Bösecke",
             "myDogs" to listOf("Bebe", "Dot", "Brownie", "Bella")
     )
+    private val validTitle = "<h1>Ktor Pebble Test Page</h1>"
+    private val validDescription = "<p>A Ktor feature to use the pebble template engine by Mitchell Bösecke</p>"
+    private val validListItem = "<li>Brownie</li>"
+    private val templateName = "example.peb"
 
     @Test
     fun testName() {
@@ -33,15 +40,15 @@ class PebbleTest {
             application.install(ConditionalHeaders)
             application.routing {
                 get("/") {
-                    call.respond(PebbleContent("example.peb", model, "e"))
+                    call.respond(PebbleContent(templateName, model, "e"))
                 }
             }
 
             handleRequest(HttpMethod.Get, "/").response.let { response ->
                 assertNotNull(response.content)
-                assert(response.content!!.contains("<h1>Ktor Pebble Test Page</h1>"))
-                assert(response.content!!.contains("<p>A Ktor feature to use the pebble template engine by Mitchell Bösecke</p>"))
-                assert(response.content!!.contains("<li>Brownie</li>"))
+                assert(response.content!!.contains(validTitle))
+                assert(response.content!!.contains(validDescription))
+                assert(response.content!!.contains(validListItem))
                 val contentTypeText = assertNotNull(response.headers[HttpHeaders.ContentType])
                 assertEquals(ContentType.Text.Html.withCharset(Charsets.UTF_8), ContentType.parse(contentTypeText))
                 assertEquals("e", response.headers[HttpHeaders.ETag])
@@ -56,7 +63,7 @@ class PebbleTest {
             application.install(ConditionalHeaders)
             application.routing {
                 get("/") {
-                    call.respond(PebbleContent("example.peb", model, "e"))
+                    call.respond(PebbleContent(templateName, model, "e"))
                 }
             }
 
@@ -64,9 +71,9 @@ class PebbleTest {
 
             with(call.response) {
                 assertNotNull(content)
-                assert(content!!.contains("<h1>Ktor Pebble Test Page</h1>"))
-                assert(content!!.contains(other = "<p>A Ktor feature to use the pebble template engine by Mitchell Bösecke</p>"))
-                assert(content!!.contains("<li>Brownie</li>"))
+                assert(content!!.contains(validTitle))
+                assert(content!!.contains(validDescription))
+                assert(content!!.contains(validListItem))
             }
         }
     }
@@ -122,5 +129,4 @@ class PebbleTest {
             }
         }
     }
-
 }

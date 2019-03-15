@@ -19,7 +19,7 @@ apply plugin: 'application'
 apply plugin: 'com.jfrog.bintray'
 
 
-version = '0.0.1'
+version = '0.0.2'
 group = 'com.tlogx.ktor'
 description = """Ktor Pebble Templates"""
 mainClassName = "io.ktor.server.netty.DevelopmentEngine"
