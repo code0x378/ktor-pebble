@@ -18,17 +18,32 @@ import kotlinx.coroutines.io.ByteWriteChannel
 import java.util.*
 
 
+/**
+ * Represents a response content that could be used to respond with `call.respond(PebbleContent(...))`
+ *
+ * @param template name to be resolved by pebble
+ * @param model to be passed to the template
+ * @param etag header value (optional)
+ * @param contentType (optional, `text/html` with UTF-8 character encoding by default)
+ */
 class PebbleContent(val template: String,
                     val model: Map<String, Any>,
                     val etag: String? = null,
                     val contentType: ContentType = ContentType.Text.Html.withCharset(Charsets.UTF_8))
 
+
+/**
+ * Configurable ktor options
+ */
 class Configuration {
     var templateDir = ""
     var strictVariables = false
     var defaultLocale = Locale.getDefault()
 }
 
+/**
+ * Pebble ktor feature
+ */
 class Pebble(configuration: Configuration) {
     private var templateDir = configuration.templateDir
     private var engine = PebbleEngine.Builder()
@@ -36,6 +51,9 @@ class Pebble(configuration: Configuration) {
             .defaultLocale(configuration.defaultLocale)
             .build()
 
+    /**
+     * A companion object for installing feature
+     */
     companion object Feature : ApplicationFeature<ApplicationCallPipeline, Configuration, Pebble> {
         override val key = AttributeKey<Pebble>("pebble")
 
