@@ -19,7 +19,7 @@ apply plugin: 'application'
 apply plugin: 'com.jfrog.bintray'
 
 
-version = '0.0.2'
+version = '0.0.3'
 group = 'com.tlogx.ktor'
 description = """Ktor Pebble Templates"""
 mainClassName = "io.ktor.server.netty.DevelopmentEngine"
@@ -40,7 +40,7 @@ dependencies {
     compile "io.ktor:ktor-server-netty:$ktor_version"
     compile "io.ktor:ktor-html-builder:$ktor_version"
     compile "ch.qos.logback:logback-classic:$logback_version"
-    compile "com.mitchellbosecke:pebble:2.3.0"
+    compile "com.mitchellbosecke:pebble:2.4.0"
 
     testCompile "io.ktor:ktor-server-tests:$ktor_version"
 }
@@ -101,7 +101,7 @@ publishing {
             }
             groupId 'com.tlogx.ktor'
             artifactId 'ktor-pebble'
-            version '0.0.2'
+            version '0.0.3'
             pom.withXml {
                 def root = asNode()
                 root.appendNode('description', 'Ktor Pebble Template Feature')
@@ -133,8 +133,8 @@ bintray {
         githubRepo = 'jeffsmithdev/ktor-pebble'
         githubReleaseNotesFile = 'README.md'
         version {
-            name = '0.0.2'
-            desc = '0.0.2'
+            name = '0.0.3'
+            desc = '0.0.3'
             released = new Date()
         }
     }
