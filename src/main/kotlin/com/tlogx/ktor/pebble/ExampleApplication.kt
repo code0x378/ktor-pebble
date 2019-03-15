@@ -18,6 +18,9 @@ fun Application.main() {
         templateDir = ""  // defaults to root of resources folder
         strictVariables = true
         defaultLocale = Locale.US
+        cacheActive = true
+        allowGetClass = false
+        greedyMatchMethod = false
     }
     routing {
         get("/") {

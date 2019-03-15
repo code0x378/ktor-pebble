@@ -33,12 +33,18 @@ class PebbleContent(val template: String,
 
 
 /**
- * Configurable ktor options
+ * Configurable ktor/Pebble options
+ *
+ * See https://pebbletemplates.io/wiki/guide/installation/
  */
 class Configuration {
     var templateDir = ""
     var strictVariables = false
     var defaultLocale = Locale.getDefault()
+    var cacheActive = true
+    var allowGetClass = false
+    var greedyMatchMethod = false
+
 }
 
 /**

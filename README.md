@@ -15,10 +15,10 @@ maven { url  "https://dl.bintray.com/jeffsmithdev/maven" }
 Include the artifact:
 
 ```groovy
-compile 'com.tlogx.ktor:ktor-pebble:0.0.2'
+compile 'com.tlogx.ktor:ktor-pebble:0.0.3'
 ```
 
-Install the feature in ktor:
+Install the feature in ktor with optional config:
 
 ```kotlin
 install(Pebble) {
@@ -26,6 +26,9 @@ install(Pebble) {
             templateDir = "" // resource path,  i.e templateDir = "templates/"
             strictVariables = true // throw exception if variables are missing
             defaultLocale = Locale.US // override Locale.getDefault()
+            cacheActive = true // flag to activate/deactivate template caching
+            allowGetClass = false // throws an exception if you try to access the class/getClass attribute
+            greedyMatchMethod = false  // greedy matching mode for finding java method
         }
 }
 ```
@@ -53,11 +56,15 @@ routing {
 
 ## Releases
 
+**0.0.3**
+- Added additional pebble configuration options
+- Upgraded pebble to v2.4.0
+
 **0.0.2**
-  - Kotlin 1.3 support and minor code fixes/improvements - Thanks Preslav Rachev
+- Kotlin 1.3 support and minor code fixes/improvements - Thanks Preslav Rachev
 
 **0.0.1**
-  - Basic functionality
+- Basic functionality
 
 ## Notes
 
