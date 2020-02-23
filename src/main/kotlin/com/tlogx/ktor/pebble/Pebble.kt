@@ -14,7 +14,7 @@ import io.ktor.response.ApplicationSendPipeline
 import io.ktor.util.AttributeKey
 import io.ktor.util.KtorExperimentalAPI
 import io.ktor.util.cio.bufferedWriter
-import kotlinx.coroutines.io.ByteWriteChannel
+import io.ktor.utils.io.ByteWriteChannel
 import java.util.*
 
 
