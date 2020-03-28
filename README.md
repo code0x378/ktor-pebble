@@ -2,6 +2,8 @@
 
 A feature to use the Pebble template engine with ktor. 
 
+**Note: Version 0.0.5 is for ktor 1.3+, Version 0.0.4 is for <= 1.2**
+
 ## Installation
 
 ### Add dependency to gradle
@@ -15,7 +17,7 @@ maven { url  "https://dl.bintray.com/jeffsmithdev/maven" }
 Include the artifact:
 
 ```groovy
-compile 'com.tlogx.ktor:ktor-pebble:0.0.3'
+compile 'com.tlogx.ktor:ktor-pebble:0.0.5'
 ```
 
 Install the feature in ktor with optional config:
@@ -55,6 +57,12 @@ routing {
 - Add additional pebble configuration options
 
 ## Releases
+
+**0.0.5**
+- Updated ktor to 1.3.0
+
+**0.0.4**
+- Updated kotlin (1.3.50), ktor (1.2.4) and pebble (3.1.0) - Thanks Richard Scorer
 
 **0.0.3**
 - Added additional pebble configuration options
