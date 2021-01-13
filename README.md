@@ -2,7 +2,7 @@
 
 A feature to use the Pebble template engine with ktor. 
 
-**Note: Version 0.0.5 is for ktor 1.3+, Version 0.0.4 is for <= 1.2**
+**Note: Version 0.0.5 and above is for ktor 1.3+, Version 0.0.4 is for <= 1.2**
 
 ## Installation
 
@@ -17,7 +17,7 @@ maven { url  "https://dl.bintray.com/jeffsmithdev/maven" }
 Include the artifact:
 
 ```groovy
-compile 'com.tlogx.ktor:ktor-pebble:0.0.5'
+compile 'com.tlogx.ktor:ktor-pebble:0.0.6'
 ```
 
 Install the feature in ktor with optional config:
@@ -58,6 +58,9 @@ routing {
 
 ## Releases
 
+**0.0.6**
+- Updated ktor to 1.5.0, kotlin to 1.4.21 and pebble to 3.1.4
+
 **0.0.5**
 - Updated ktor to 1.3.0
 
@@ -76,5 +79,5 @@ routing {
 
 ## Notes
 
-- Most feature content taken from [ktor-velocity](https://ktor.io/features/templates/velocity.html)
-- [Pebble template engine](http://www.mitchellbosecke.com/pebble/home) by Mitchell Bösecke
+- Most feature content taken from [ktor-velocity](https://ktor.io/docs/velocity.html)
+- [Pebble template engine](http://pebbletemplates.io) by [Mitchell Bösecke](http://www.mitchellbosecke.com)
