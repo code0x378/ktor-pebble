@@ -1,8 +1,10 @@
 # Ktor Pebble Template Feature
 
+** This project is archived due to ktor natively supporting pebble templates**
+
 A feature to use the Pebble template engine with ktor. 
 
-**Note: Version 0.0.5 and above is for ktor 1.3+, Version 0.0.4 is for <= 1.2**
+Note: Version 0.0.5 and above is for ktor 1.3+, Version 0.0.4 is for <= 1.2**
 
 ## Installation
 
