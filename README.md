@@ -1,6 +1,8 @@
 # Ktor Pebble Template Feature
 
-** This project is archived due to ktor natively supporting pebble templates**
+**This project is archived due to ktor natively supporting pebble templates**
+
+----
 
 A feature to use the Pebble template engine with ktor. 
 
